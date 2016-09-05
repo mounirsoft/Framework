@@ -10,11 +10,15 @@ class Loader {
         $this->namespaces = array(
             __NAMESPACE__ => LIB_PATH . DIRECTORY_SEPARATOR,
             'Application' => ROOT_PATH . DIRECTORY_SEPARATOR,
-            'DebugBar'    => LIB_PATH . DIRECTORY_SEPARATOR,
-            'Psr'         => LIB_PATH . DIRECTORY_SEPARATOR,
-            'Symfony'     => LIB_PATH . DIRECTORY_SEPARATOR
         );
+    }
+
+    public function register() {
         spl_autoload_register(array($this, 'loadClass'));
+    }
+
+    public function unregister() {
+        spl_autoload_unregister(array($this, 'loadClass'));
     }
 
     public function loadClass($classname) {
@@ -27,7 +31,7 @@ class Loader {
     }
 
     public function __destruct() {
-        spl_autoload_unregister(array($this, 'loadClass'));
+        $this->unregister();
     }
 
 }

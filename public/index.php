@@ -1,6 +1,6 @@
 <?php
     
-    echo '<pre>';
+    //echo '<pre>';
     
     function formatPath($path = null) {
         return str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $path);
@@ -18,8 +18,10 @@
             defined('APP_PATH')  || define('APP_PATH', formatPath(ROOT_PATH . '/application'));
             
             require_once formatPath(LIB_PATH.'/MounirSoft/Application.php');
-            $application = new \MounirSoft\Application();
+            $application = new \MounirSoft\Application(APP_PATH.DIRECTORY_SEPARATOR.'configs'.DIRECTORY_SEPARATOR.'application.php');
             $application->run();
+            
+            //echo round((microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"]) * 1000) . ' ms';
             
             //str_replace(dirname(dirname($_SERVER['SCRIPT_NAME'])), '', $_SERVER['REQUEST_URI']);
             //$_SERVER['QUERY_STRING'];

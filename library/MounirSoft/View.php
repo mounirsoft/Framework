@@ -10,7 +10,7 @@ class View {
     private $_data = [];
     private $_controller;
     private $_action;
-    private $_debugbarRenderer;
+    private $_executionTime;
 
     public function __construct() {
         $this->_viewDir = ROOT_PATH . '/application/views/scripts';
@@ -33,15 +33,13 @@ class View {
         return $this->_action;
     }
 
-    public function setDebugbarRenderer($debugbarRenderer) {
-        $this->_debugbarRenderer = $debugbarRenderer;
+    public function setExecutionTime($executionTime) {
+        $this->_executionTime = $executionTime;
     }
     
-    public function getDebugbarRenderer() {
-        return $this->_debugbarRenderer;
+    public function getExecutionTime() {
+        return round($this->_executionTime * 1000) . ' ms';
     }
-
-
 
 
     public function setTitle($title) {

@@ -2,48 +2,51 @@
 
 namespace MounirSoft;
 
-use DebugBar\StandardDebugBar;
+use ReflectionClass;
 
-require_once 'Loader.php';
-require_once 'Container.php';
+require 'Loader.php';
+require 'Container/BundleManager.php';
 
-class Application {
+class Application extends Container\BundleManager {
 
-    protected $_container = null;
-    protected $_loader = null;
+    const VERSION = 'v0.0.1';
 
-    public function __construct() {
-        $this->_container = new Container();
-        $this->_loader = new Loader();
-        $this->_container->set('Request' , function () {
-            return new Request();
-        });
-        $this->_container->set('Router' , function ($c) {
-            return new Router($c->get('Request'));
-        });
+    //protected $_container = null;
+
+    public function __construct($config_file) {
+
+        $this->instance('MounirSoft\Application', $this);
+        $this->instance('MounirSoft\Loader', new Loader())->register();
+        $this->register(new Container\Bundle());
     }
     
     public function run() {
         
-        $debugbar = new StandardDebugBar();
-        $debugbarRenderer = $debugbar->getJavascriptRenderer();
-
-        $debugbar["messages"]->addMessage("hello world!");
-
+        $dispatcher = new Dispatcher();
+        //$dispatcher->dispatch($this->get('MounirSoft\Router'));
         
-        $controller = $this->_container->get('Router')->getControllerClass();
+        //$controller = $this->build($this->get('MounirSoft\Router')->getControllerClass());
+        
+        echo '<pre>';
+        //print_r($controller->{$this->get('MounirSoft\Router')->getActionMethod()}());
+        print_r($dispatcher->dispatch($this->get('MounirSoft\Router')));
+        
+        
+        /*$controller = $this->get('MounirSoft\Router')->getControllerClass();
         $controller = new $controller();
         
-        $view = new View();
-        $view->setDebugbarRenderer($debugbarRenderer);
-        $view->setController($this->_container->get('Router')->getController());
-        $view->setAction($this->_container->get('Router')->getAction());
+        $view = $this->get('MounirSoft\View');
+        $view->setController($this->get('MounirSoft\Router')->getController());
+        $view->setAction($this->get('MounirSoft\Router')->getAction());
         
         $controller->setView($view);
         
-        $controller->{$this->_container->get('Router')->getActionMethod()}();
+        $controller->{$this->get('MounirSoft\Router')->getActionMethod()}();
         
-        echo $controller->getView()->render();
+        $view->setExecutionTime(microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"]);
+        
+        echo $controller->getView()->render();*/
+        
         
         
         //)->{$this->_container->get('Router')->getActionMethod()}();
@@ -122,7 +125,17 @@ class Application {
         }*/
     }
 
-    public function executeController(Route $route, Request $request) {
+    public function __destruct() {
+        /*$this->_container->get('View')->setExecutionTime(microtime(true) - $_SERVER["REQUEST_TIME_FLOAT"]);
+        
+        if (class_exists('MounirSoft\View')) {
+            echo 'deeeeeeeeeeeeeeeeeeja kayn';
+        }*/
+
+        
+    }
+
+    /*public function executeController(Route $route, Request $request) {
         $controller_class = $route->getRouteClass();
         return call_user_func_array(
             array(
@@ -131,5 +144,5 @@ class Application {
             ),
             array($request)
         );
-    }
+    }*/
 }
