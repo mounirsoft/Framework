@@ -5,18 +5,17 @@ namespace MounirSoft;
 use ReflectionClass;
 
 require 'Loader.php';
-require 'Container/BundleManager.php';
+require 'Container.php';
 
-class Application extends Container\BundleManager {
+class Application extends Container {
 
     const VERSION = 'v0.0.1';
 
-    //protected $_container = null;
-
     public function __construct($config_file) {
 
-        $this->instance('MounirSoft\Application', $this);
-        $this->instance('MounirSoft\Loader', new Loader())->register();
+        $this->set('MounirSoft\Application', $this);
+        $this->set('MounirSoft\Loader', new Loader());
+        $this->get('MounirSoft\Loader')->register();
         $this->register(new Container\Bundle());
     }
     

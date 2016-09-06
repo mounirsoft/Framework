@@ -2,20 +2,10 @@
 
 namespace MounirSoft;
 
-class Config {
+class Config extends \ArrayObject {
 
-    protected $_config = array();
-    
-    public function __construct($filename) {
-        $this->_config = require $filename;
-    }
-
-    public function getConfigs() {
-        return $this->_config;
-    }
-
-    public function get($key) {
-        return $this->_config[$key];
+    public function __construct(array $array) {
+        parent::__construct($array, \ArrayObject::ARRAY_AS_PROPS);
     }
 
 }

@@ -3,5 +3,5 @@
 namespace MounirSoft\Container;
 
 interface IBundle {
-    public function register(BundleManager $bundleManager);
+    public function register(IContainer $container);
 }

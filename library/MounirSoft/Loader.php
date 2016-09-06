@@ -23,6 +23,10 @@ class Loader {
 
     public function loadClass($classname) {
         $parts = explode(DIRECTORY_SEPARATOR, $classname);
+        
+        echo $classname;
+        echo '<hr />';
+        
         require $this->formatPath($this->namespaces[$parts[0]]. $classname) . '.php';
     }
 
