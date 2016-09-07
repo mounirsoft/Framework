@@ -11,22 +11,11 @@ class Loader {
             __NAMESPACE__ => LIB_PATH . DIRECTORY_SEPARATOR,
             'Application' => ROOT_PATH . DIRECTORY_SEPARATOR,
         );
-    }
-
-    public function register() {
         spl_autoload_register(array($this, 'loadClass'));
-    }
-
-    public function unregister() {
-        spl_autoload_unregister(array($this, 'loadClass'));
     }
 
     public function loadClass($classname) {
         $parts = explode(DIRECTORY_SEPARATOR, $classname);
-        
-        echo $classname;
-        echo '<hr />';
-        
         require $this->formatPath($this->namespaces[$parts[0]]. $classname) . '.php';
     }
 
@@ -35,7 +24,7 @@ class Loader {
     }
 
     public function __destruct() {
-        $this->unregister();
+        spl_autoload_unregister(array($this, 'loadClass'));
     }
 
 }

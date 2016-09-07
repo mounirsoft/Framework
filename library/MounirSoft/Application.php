@@ -15,20 +15,26 @@ class Application extends Container {
 
         $this->set('MounirSoft\Application', $this);
         $this->set('MounirSoft\Loader', new Loader());
-        $this->get('MounirSoft\Loader')->register();
         $this->register(new Container\Bundle());
+        
+        echo '<pre>';
+        print_r($this);
+        
     }
     
     public function run() {
         
         $dispatcher = new Dispatcher();
+        
+        $this->get('MounirSoft\Router');
+        
         //$dispatcher->dispatch($this->get('MounirSoft\Router'));
         
         //$controller = $this->build($this->get('MounirSoft\Router')->getControllerClass());
         
-        echo '<pre>';
+        //echo '<pre>';
         //print_r($controller->{$this->get('MounirSoft\Router')->getActionMethod()}());
-        print_r($dispatcher->dispatch($this->get('MounirSoft\Router')));
+        //print_r($dispatcher->dispatch($this->get('MounirSoft\Router')));
         
         
         /*$controller = $this->get('MounirSoft\Router')->getControllerClass();

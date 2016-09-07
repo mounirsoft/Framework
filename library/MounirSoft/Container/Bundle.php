@@ -4,15 +4,12 @@ namespace MounirSoft\Container;
 
 class Bundle implements IBundle {
     
-    public function register(IContainer $container) {
-        $container->set('MounirSoft\Loader', function () {
-            return new Loader();
-        });
+    public function register(\MounirSoft\Container $container) {
         $container->set('MounirSoft\Config', function () {
-            return new Config();
+            return new \MounirSoft\Config();
         });
         $container->set('MounirSoft\Request', function () {
-            return new Request();
+            return new \MounirSoft\Request();
         });
         $container->set('MounirSoft\Router' , function() {
             return new \MounirSoft\Router(
@@ -24,7 +21,7 @@ class Bundle implements IBundle {
             );
         });
         $container->set('MounirSoft\View', function () {
-            return new View();
+            return new \MounirSoft\View();
         });
         
         /*$container->singleton('database', function ($container) {

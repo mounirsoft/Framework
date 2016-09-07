@@ -4,6 +4,51 @@ namespace MounirSoft;
 
 class Container {
 
+    private $_values = array();
+    private $_keys = array();
+
+    public function set($id, $value) {
+        $this->_values[$id] = $value;
+        $this->_keys[$id] = true;
+    }
+
+    public function get($id) {
+        if (!$this->has($id)) {
+            throw new \InvalidArgumentException(sprintf('Identifier "%s" is not defined.', $id));
+        }
+        
+        if (!is_object($this->_values[$id]) || !method_exists($this->_values[$id], '__invoke')) {
+            return $this->_values[$id];
+        }
+        
+        return $this->_values[$id]($this);
+    }
+
+    public function has($id) {
+        return isset($this->_keys[$id]);
+    }
+
+    public function remove($id) {
+        if ($this->has($id)) {
+            unset($this->_values[$id], $this->_keys[$id]);
+        }
+    }
+
+    public function keys() {
+        return array_keys($this->_values);
+    }
+
+    public function register(Container\IBundle $provider) {
+        $provider->register($this);
+        return $this;
+    }
+
+}
+
+
+
+/*class Container {
+
     private $values = array();
     private $factories;
     private $protected;
@@ -15,7 +60,7 @@ class Container {
         $this->factories = new \SplObjectStorage();
         $this->protected = new \SplObjectStorage();
         foreach ($values as $key => $value) {
-            $this->offsetSet($key, $value);
+            $this->set($key, $value);
         }
     }
 
@@ -121,4 +166,4 @@ class Container {
         return $this;
     }
 
-}
+}*/
