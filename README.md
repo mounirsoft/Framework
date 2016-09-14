@@ -1,4 +1,4 @@
-# ${1:Project Name}
+# MounirSoft PHP Framework.
 TODO: Write a project description
 ## Installation
 TODO: Describe the installation process
@@ -20,4 +20,3 @@ TODO: Write license
 
 [![Build Status](https://avatars3.githubusercontent.com/u/12402056?v=3&s=96)](https://github.com/mounirsoft/)
 
-MounirSoft PHP Framework.
