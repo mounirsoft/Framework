@@ -1,5 +1,3 @@
 # MounirSoft PHP Framework.
 
-:warning: Under Construction
-
-![Under Construction](uc.png)
+<div style="margin: 0 auto;">![Under Construction](uc.png)</div>
