@@ -1,3 +1,4 @@
 # MounirSoft PHP Framework.
-
-<div style="margin: 0 auto;">![Under Construction](uc.png)</div>
+<p align="center">
+![Under Construction](uc.png)
+</p>
